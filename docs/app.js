@@ -13,6 +13,7 @@ const fmt = (s, o) => at(s).toLocaleDateString('pt-BR', o);
 const nice = (s) => s === today() ? 'Hoje' : s === plus(today(), 1) ? 'Amanhã' : fmt(s, { weekday: 'short', day: 'numeric', month: 'short' });
 const REP = { none: 'Não repete', daily: 'Todo dia', weekly: 'Toda semana', monthly: 'Todo mês', yearly: 'Todo ano' };
 const CATS = ['Hortifruti', 'Carnes', 'Frios e laticínios', 'Padaria', 'Mercearia', 'Bebidas', 'Limpeza', 'Higiene', 'Outros'];
+const COLORS = ['#173f7f', '#3b9bea', '#e07b39', '#8a4a9e', '#c23b5a', '#8f6410'];
 const REM = [['', 'Sem lembrete'], [0, 'Na hora'], [30, '30 minutos antes'], [60, '1 hora antes'], [1440, '1 dia antes'], [10080, '1 semana antes']];
 sel = today(); month = sel.slice(0, 7);
 
@@ -31,6 +32,7 @@ async function load(quiet) {
   if (!token || busy) return;
   try {
     const next = await api('GET', '/state');
+    next.members.forEach((m, i) => { m.color = COLORS[i % COLORS.length]; });
     if (busy) return;
     const changed = JSON.stringify(next) !== JSON.stringify(S);
     S = next;

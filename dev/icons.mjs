@@ -13,7 +13,7 @@ for (const n of [180, 192, 512]) {
     const roof = v > 0.22 && v < 0.5 && Math.abs(u - 0.5) < (v - 0.22) * 1.15;
     const wall = v >= 0.5 && v < 0.76 && Math.abs(u - 0.5) < 0.23;
     const door = v > 0.58 && v < 0.76 && Math.abs(u - 0.5) < 0.065;
-    const c = door ? [242, 190, 92] : roof || wall ? [243, 245, 239] : [47, 111, 94];
+    const c = door ? [110, 180, 242] : roof || wall ? [255, 255, 255] : [23, 63, 127];
     c.forEach((k, i) => { raw[y * (n * 3 + 1) + 1 + x * 3 + i] = k; });
   }
   const h = Buffer.alloc(13); h.writeUInt32BE(n, 0); h.writeUInt32BE(n, 4); h[8] = 8; h[9] = 2;

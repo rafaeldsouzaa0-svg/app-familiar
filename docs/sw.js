@@ -1,4 +1,4 @@
-const C = 'familia-1';
+const C = 'familia-2';
 const FILES = ['./', 'style.css', 'app.js', 'config.js', 'manifest.webmanifest', 'icon-180.png'];
 self.addEventListener('install', (e) => e.waitUntil(caches.open(C).then((c) => c.addAll(FILES)).then(() => self.skipWaiting())));
 self.addEventListener('activate', (e) => e.waitUntil(caches.keys().then((k) => Promise.all(k.filter((x) => x.startsWith('familia-') && x !== C).map((x) => caches.delete(x)))).then(() => self.clients.claim())));
@@ -9,5 +9,5 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(fetch(e.request).then((r) => {
     if (r.ok) { const copy = r.clone(); e.waitUntil(caches.open(C).then((c) => c.put(e.request, copy))); }
     return r;
-  }).catch(async () => (await caches.match(e.request, { ignoreSearch: true })) || Response.error()));
+  }).catch(async () => (await caches.match(e.request, { ignoreSearch: true, cacheName: C })) || Response.error()));
 });
