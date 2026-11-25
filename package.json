@@ -1,0 +1,1 @@
+{"name":"app-familiar","private":true,"type":"module","scripts":{"dev":"node dev/server.mjs","test":"node --test dev/api.test.mjs"},"dependencies":{"pg":"^8.23.1"},"devDependencies":{"@electric-sql/pglite":"^0.6.0"}}
